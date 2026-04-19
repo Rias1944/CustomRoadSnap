@@ -4,7 +4,7 @@ A mod for **Cities: Skylines II** that snaps roads to **120° angles** (and mult
 
 ## Features
 
-- Automatically snaps road placement to 120° increments (0°, 60°, 120°, 180°, 240°, 300°)
+- Automatically snaps road placement to 120° increments (60°, 120°)
 - Toggle button in the **Tool Options** panel (Einrasten/Snap section) when the road tool is active
 - Keyboard shortcut to toggle snapping on/off (configurable in mod settings)
 - Minimal performance impact — only active when the Net Tool is selected
