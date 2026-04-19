@@ -8,6 +8,17 @@
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<LongDescription>
 Snap roads to any angle you choose. Configure the snap angle (1–90°) via a slider in the mod settings. Toggle snapping on/off with the toolbar button or a keyboard shortcut.
+
+⚠️ **Experimental Mod**
+This mod is currently in experimental stage. Bugs may occur during gameplay. Please test the mod on a test save before using it on your main city to avoid potential save corruption or unexpected behavior.
+
+**Features:**
+- Configurable snap angle (1–90°)
+- Toggle button in toolbar
+- Keyboard shortcut support
+- Minimal performance impact
+
+Report issues on GitHub: https://github.com/Rias1944/CustomRoadSnap/issues
 	</LongDescription>
 	<!--Thumbnail-->
 	<Thumbnail Value="Properties/Thumbnail.png" />
