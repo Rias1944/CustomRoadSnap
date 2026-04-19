@@ -1,5 +1,8 @@
 # CustomRoadSnap — Cities: Skylines II Mod
 
+![Version](https://img.shields.io/badge/version-1.0-blue)
+![Game Version](https://img.shields.io/badge/game%20version-1.1.*-green)
+
 A mod for **Cities: Skylines II** that snaps roads to a **configurable angle** while the Net Tool is active.
 
 ## Features
@@ -10,18 +13,17 @@ A mod for **Cities: Skylines II** that snaps roads to a **configurable angle** w
 - Keyboard shortcut to toggle snapping on/off (configurable in mod settings)
 - Minimal performance impact — only active when the Net Tool is selected
 
-## Requirements
+## 📦 Installation
 
-- Cities: Skylines II (tested on 1.5.x)
-- [HarmonyX](https://thunderstore.io/c/cities-skylines-ii/p/BepInEx/BepInExPack/) (included via NuGet)
+### Option 1: Download from GitHub Releases (Recommended)
+1. Download the latest [`CustomRoadSnap_v1.0.zip`](https://github.com/Rias1944/CustomRoadSnap/releases/latest)
+2. Extract the ZIP file
+3. Copy the contents to:  
+   `%AppData%\..\LocalLow\Colossal Order\Cities Skylines II\Mods\CustomRoadSnap\`
+4. Enable the mod in **Options → Mods** menu in-game
 
-## Installation
-
-1. Download the latest release
-2. Copy the `CustomRoadSnap` folder into:  
-   `%AppData%\..\LocalLow\Colossal Order\Cities Skylines II\Mods\`
-3. Enable the mod in the **Options → Mods** menu in-game
-4. Open **Options → Custom Road Snap** and set your preferred snap angle
+### Option 2: Paradox Mods (Coming Soon)
+*The mod will be available on Paradox Mods once publishing is set up.*
 
 ## Building from Source
 
