@@ -27,7 +27,25 @@ Snap roads to any angle you choose. Configure the snap angle (1–90°) via a sl
 	<!--Required DLC, can be set multiple times. Supported values are "Landmark Buildings", "San Fransisco Set", "Beach Properties", "Urban Promenades", "Modern Architecture"-->
 	<RequiredDLC Value="" />
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
-	<ChangeLog Value="Updated for game version 1.5.6f" />
+	<ChangeLog>
+## Version 1.1
+
+### Compatibility
+- Updated for **Cities: Skylines II v1.5.6f**
+- Verified compatibility with latest game patch
+
+### Improvements
+- Optimized UI module structure
+- Reduced deployment package size
+- Improved build configuration
+
+### Technical
+- Removed unnecessary dist subfolder in UI deployment
+- Disabled PDB generation in Release builds for cleaner distribution
+- Updated .gitignore for better repository hygiene
+
+No breaking changes - existing settings and preferences are preserved.
+	</ChangeLog>
 	<!--<ChangeLog>
 	</ChangeLog>-->
 	<!--External link, can be set multiple times. supported types are "discord", "github", "youtube", "twitch", "x", "paypal", "patreon", "buymeacoffee", "kofi", "crowdin", "gitlab", "gofundme"-->
