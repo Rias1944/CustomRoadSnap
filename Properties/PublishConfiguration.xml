@@ -32,7 +32,7 @@ Report issues on GitHub: https://github.com/Rias1944/CustomRoadSnap/issues
 	<!--Version of the mod-->
 	<ModVersion Value="1.1" />
 	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.5.6f" />
+	<GameVersion Value="1.5.6f1" />
 	<!--Dependency for the mod, can be set multiple times-->
 	<Dependency Id="" />
 	<!--Required DLC, can be set multiple times. Supported values are "Landmark Buildings", "San Fransisco Set", "Beach Properties", "Urban Promenades", "Modern Architecture"-->
@@ -42,7 +42,7 @@ Report issues on GitHub: https://github.com/Rias1944/CustomRoadSnap/issues
 ## Version 1.1
 
 ### Compatibility
-- Updated for **Cities: Skylines II v1.5.6f**
+- Updated for **Cities: Skylines II v1.5.6f1**
 - Verified compatibility with latest game patch
 
 ### Improvements
