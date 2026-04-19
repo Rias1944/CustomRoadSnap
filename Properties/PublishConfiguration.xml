@@ -39,11 +39,6 @@ Snap roads to any angle you choose. Configure the snap angle (1–90°) via a sl
 - Reduced deployment package size
 - Improved build configuration
 
-### Technical
-- Removed unnecessary dist subfolder in UI deployment
-- Disabled PDB generation in Release builds for cleaner distribution
-- Updated .gitignore for better repository hygiene
-
 No breaking changes - existing settings and preferences are preserved.
 	</ChangeLog>
 	<!--<ChangeLog>
