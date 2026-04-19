@@ -5,13 +5,13 @@ using Game;
 using Game.SceneFlow;
 using Game.UI;
 
-namespace RoadSnap120
+namespace CustomRoadSnap
 {
     /// <summary>
     /// Stellt der UI einen ValueBinding für den Snap-Zustand und einen TriggerBinding
     /// für den Toggle-Button zur Verfügung.
     /// </summary>
-    public partial class RoadSnapUISystem : UISystemBase
+    public partial class CustomRoadSnapUISystem : UISystemBase
     {
         private ValueBinding<bool> m_SnapEnabledBinding;
 
@@ -27,18 +27,18 @@ namespace RoadSnap120
             }
 
             AddBinding(m_SnapEnabledBinding = new ValueBinding<bool>(
-                "roadSnap120", "snapEnabled",
+                "customRoadSnap", "snapEnabled",
                 Mod.m_Setting?.SnapEnabled ?? false));
 
             AddBinding(new TriggerBinding(
-                "roadSnap120", "toggleSnap",
+                "customRoadSnap", "toggleSnap",
                 () =>
                 {
                     if (Mod.m_Setting == null) return;
                     Mod.m_Setting.SnapEnabled = !Mod.m_Setting.SnapEnabled;
                     Mod.m_Setting.ApplyAndSave();
                     Mod.ApplySnapEnabled(Mod.m_Setting.SnapEnabled);
-                    Mod.log.Info($"120° Snap (UI) {(Mod.m_Setting.SnapEnabled ? "enabled" : "disabled")}");
+                    Mod.log.Info($"Custom Snap (UI) {(Mod.m_Setting.SnapEnabled ? "enabled" : "disabled")}");
                 }));
         }
 

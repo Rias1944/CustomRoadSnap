@@ -6,21 +6,29 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 
-namespace RoadSnap120
+namespace CustomRoadSnap
 {
     // -------------------------------------------------------------------------
-    // Shared constants  –  3 axes = 6 directions at 60 deg spacing
+    // Shared constants  –  axes are computed dynamically from the SnapAngle setting
     // -------------------------------------------------------------------------
     internal static class SnapConstants
     {
-        public static readonly float[] AxisOffsets =
+        // Returns axis offsets for the current SnapAngle (e.g. 30° → 6 axes at 0,30,60,…150°)
+        public static float[] GetAxisOffsets()
         {
-            0f,
-            math.PI / 3f,
-            math.PI * 2f / 3f
-        };
+            float angleDeg = Mod.m_Setting?.SnapAngle ?? 30f;
+            angleDeg = math.clamp(angleDeg, 1f, 90f);
+            float angleRad = angleDeg * math.PI / 180f;
+            // Number of unique axes in 180° half-circle
+            int count = (int)math.round(math.PI / angleRad);
+            if (count < 1) count = 1;
+            var offsets = new float[count];
+            for (int i = 0; i < count; i++)
+                offsets[i] = i * angleRad;
+            return offsets;
+        }
 
-        // Snap greift nur ein, wenn der Cursor innerhalb dieses Winkels zur Achse liegt (3°)
+        // Snap greift nur ein, wenn der Cursor innerhalb dieses Winkels zur Achse liegt
         public const float SnapThresholdDeg = 3f;
         public static readonly float SnapThresholdRad = SnapThresholdDeg * math.PI / 180f;
 
@@ -49,7 +57,7 @@ namespace RoadSnap120
     // which means SnapJob ALWAYS runs this frame and clears m_SnapLines.
     // PostSystem then adds our 120 deg guide lines after SnapJob.
     // -------------------------------------------------------------------------
-    public partial class RoadSnap120PreSystem : GameSystemBase
+    public partial class CustomRoadSnapPreSystem : GameSystemBase
     {
         private ToolSystem    m_ToolSystem;
         private NetToolSystem m_NetToolSystem;
@@ -90,7 +98,7 @@ namespace RoadSnap120
     //   4. Restore StraightDirection for next frame base state.
     //   5. Fix NetCourse.m_Curve on Temp preview entities.
     // -------------------------------------------------------------------------
-    public partial class RoadSnap120PostSystem : GameSystemBase
+    public partial class CustomRoadSnapPostSystem : GameSystemBase
     {
         private ToolSystem    m_ToolSystem;
         private NetToolSystem m_NetToolSystem;
@@ -165,7 +173,7 @@ namespace RoadSnap120
             ControlPoint lineCP = controlPoints[controlPoints.Length - 1];
             lineCP.m_SnapPriority = new float2(0f, 0f);
 
-            foreach (float off in SnapConstants.AxisOffsets)
+            foreach (float off in SnapConstants.GetAxisOffsets())
             {
                 float  a  = baseAngle + off;
                 float2 d2 = new float2(math.sin(a), math.cos(a));
@@ -196,7 +204,7 @@ namespace RoadSnap120
                 float bestDiff = float.MaxValue;
                 float bestA    = curAngle;
 
-                foreach (float off in SnapConstants.AxisOffsets)
+                foreach (float off in SnapConstants.GetAxisOffsets())
                 {
                     float cand = baseAngle + off;
                     float diff = math.abs(SnapConstants.DeltaAngle(curAngle, cand));

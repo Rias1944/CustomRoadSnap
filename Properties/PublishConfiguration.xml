@@ -2,13 +2,12 @@
 	<!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
 	<ModId Value="" />
 	<!--Name of the mod to display to players-->
-	<DisplayName Value="RoadSnap120" />
+	<DisplayName Value="Custom Road Snap" />
 	<!--Short description of the mod-->
-	<ShortDescription Value="Toggle Road snap" />
+	<ShortDescription Value="Snap roads to a configurable angle" />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
-	<!--LongDescription Value="A simple mod for Roads to snap at 120° instead of 90. Perfect for a hexagon city" /-->
 	<LongDescription>
-A simple mod for Roads to snap at 120° instead of 90. Perfect for a hexagon city
+Snap roads to any angle you choose. Configure the snap angle (1–90°) via a slider in the mod settings. Toggle snapping on/off with the toolbar button or a keyboard shortcut.
 	</LongDescription>
 	<!--Thumbnail-->
 	<Thumbnail Value="Properties/Thumbnail.png" />

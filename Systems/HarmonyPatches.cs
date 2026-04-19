@@ -2,7 +2,7 @@ using Game.Tools;
 using HarmonyLib;
 using Unity.Mathematics;
 
-namespace RoadSnap120
+namespace CustomRoadSnap
 {
     // -------------------------------------------------------------------------
     // Harmony patch on NetToolSystem.GetRaycastResult(out ControlPoint, out bool)
@@ -41,7 +41,7 @@ namespace RoadSnap120
             float3 snapPos  = hitPos;
             float2 snapDir  = new float2(math.sin(baseAngle), math.cos(baseAngle));
 
-            foreach (float off in SnapConstants.AxisOffsets)
+            foreach (float off in SnapConstants.GetAxisOffsets())
             {
                 float  a    = baseAngle + off;
                 float2 d2   = new float2(math.sin(a), math.cos(a));

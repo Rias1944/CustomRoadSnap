@@ -121,7 +121,7 @@
 	</Target>
 
 	<!-- Deploy UI-Dateien (RoadSnap120.mjs + CSS) direkt in DeployDir nach DeployWIP -->
-	<Target Name="DeployUI" AfterTargets="DeployWIP" Condition="'$(NeedBuild)' and Exists('$(MSBuildProjectDirectory)\ui\dist\RoadSnap120.mjs')">
+	<Target Name="DeployUI" AfterTargets="DeployWIP" Condition="'$(NeedBuild)' and Exists('$(MSBuildProjectDirectory)\ui\dist\CustomRoadSnap.mjs')">
 		<ItemGroup>
 			<UIFiles Include="$(MSBuildProjectDirectory)\ui\dist\**\*.*" />
 		</ItemGroup>

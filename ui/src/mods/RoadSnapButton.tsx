@@ -5,7 +5,7 @@ import { useLocalization } from "cs2/l10n";
 import { ModuleRegistryExtend } from "cs2/modding";
 import { VanillaComponentResolver } from "mods/VanillaComponentResolver";
 
-const snapEnabled$ = bindValue<boolean>("roadSnap120", "snapEnabled", false);
+const snapEnabled$ = bindValue<boolean>("customRoadSnap", "snapEnabled", false);
 
 export const RoadSnapSection: ModuleRegistryExtend = (Component: any) => {
     return (props: any) => {
@@ -24,7 +24,7 @@ export const RoadSnapSection: ModuleRegistryExtend = (Component: any) => {
                     createElement(VanillaComponentResolver.instance.ToolButton, {
                         selected: snapEnabled,
                         tooltip: buttonTooltip,
-                        onSelect: () => trigger("roadSnap120", "toggleSnap"),
+                        onSelect: () => trigger("customRoadSnap", "toggleSnap"),
                         src: "Media/Glyphs/Angle.svg",
                         focusKey: VanillaComponentResolver.instance.FOCUS_DISABLED,
                         className: VanillaComponentResolver.instance.toolButtonTheme.ToolButton,
