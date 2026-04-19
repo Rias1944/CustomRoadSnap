@@ -124,13 +124,13 @@
 		<Copy SourceFiles="@(HarmonyDll)" DestinationFolder="$(DeployDir)" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
 	</Target>
 
-	<!-- Deploy UI-Dateien (RoadSnap120.mjs + CSS) direkt in DeployDir nach DeployWIP -->
+	<!-- Deploy UI-Dateien direkt in ui/ (ohne dist-Unterordner) -->
 	<Target Name="DeployUI" AfterTargets="DeployWIP" Condition="'$(NeedBuild)' and Exists('$(MSBuildProjectDirectory)\ui\dist\CustomRoadSnap.mjs')">
 		<ItemGroup>
 			<UIFiles Include="$(MSBuildProjectDirectory)\ui\dist\**\*.*" />
 			<UIModJson Include="$(MSBuildProjectDirectory)\ui\mod.json" />
 		</ItemGroup>
-		<Copy SourceFiles="@(UIFiles)" DestinationFiles="@(UIFiles->'$(DeployDir)\ui\dist\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
+		<Copy SourceFiles="@(UIFiles)" DestinationFolder="$(DeployDir)\ui" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
 		<Copy SourceFiles="@(UIModJson)" DestinationFolder="$(DeployDir)\ui" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
 	</Target>
 
