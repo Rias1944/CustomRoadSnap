@@ -7,8 +7,8 @@ ui/dist/
 # Release ZIPs
 *.zip
 
-# Publish profiles (not needed for manual publishing)
-Properties/PublishProfiles/
+# Properties folder (publishing configuration, personal settings)
+Properties/
 
 # Visual Studio
 .vs/
