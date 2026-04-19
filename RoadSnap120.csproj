@@ -88,8 +88,11 @@
 		<None Include="ui\src\mods\RoadSnapButton.module.scss" />
 		<None Include="ui\src\mods\RoadSnapButton.tsx" />
 		<None Include="ui\src\mods\VanillaComponentResolver.ts" />
-		<None Include="ui\src\types\cs2.d.ts" />
-		<None Include="ui\src\types\scss.d.ts" />
+		<None Include="ui\types\api.d.ts" />
+		<None Include="ui\types\assets.d.ts" />
+		<None Include="ui\types\bindings.d.ts" />
+		<None Include="ui\types\modding.d.ts" />
+		<None Include="ui\types\react.d.ts" />
 		<None Include="ui\webpack.config.js" />
 	</ItemGroup>
 

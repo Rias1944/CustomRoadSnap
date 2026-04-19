@@ -13,8 +13,11 @@ ui/dist/
 Thumbs.db
 .DS_Store
 
-# Notes / scratch files
-*.txt
+# Notes / scratch files (local only)
+cursor.txt
+gamedll.txt
+nts.txt
+toolutils.txt
 
 # Game DLL references (local paths)
 Library/
