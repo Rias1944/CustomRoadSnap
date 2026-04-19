@@ -4,6 +4,9 @@ obj/
 ui/node_modules/
 ui/dist/
 
+# Release ZIPs
+*.zip
+
 # Visual Studio
 .vs/
 *.user

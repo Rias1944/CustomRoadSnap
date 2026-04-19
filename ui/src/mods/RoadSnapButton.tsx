@@ -16,8 +16,8 @@ export const RoadSnapSection: ModuleRegistryExtend = (Component: any) => {
         const result = Component();
 
         if (isNetTool) {
-            const sectionTitle = translate("ToolOptions.SECTION[RoadSnap120.SnapSection]", "120° Snap");
-            const buttonTooltip = translate("ToolOptions.TOOLTIP_DESCRIPTION[RoadSnap120.ToggleSnap]", "120° Straßen-Einrasten ein-/ausschalten");
+            const sectionTitle = translate("ToolOptions.SECTION[CustomRoadSnap.SnapSection]", "Custom Snap");
+            const buttonTooltip = translate("ToolOptions.TOOLTIP_DESCRIPTION[CustomRoadSnap.ToggleSnap]", "Straßen-Einrasten ein-/ausschalten");
 
             result?.props?.children?.push(
                 createElement(VanillaComponentResolver.instance.Section, { title: sectionTitle },
