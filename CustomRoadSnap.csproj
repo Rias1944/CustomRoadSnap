@@ -10,9 +10,6 @@
 		<!--The file where mod information which is required for publishing mod on PDX mods are stored-->
 		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
 
-		<!--Disable automatic publishing during regular build-->
-		<DisableModPublishing>true</DisableModPublishing>
-
 		<!--ui/node_modules und ui/dist vom MSBuild-Scan ausschließen-->
 		<DefaultItemExcludes>$(DefaultItemExcludes);ui\**</DefaultItemExcludes>
 	</PropertyGroup>
@@ -135,11 +132,6 @@
 		</ItemGroup>
 		<Copy SourceFiles="@(UIFiles)" DestinationFiles="@(UIFiles->'$(DeployDir)\ui\dist\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
 		<Copy SourceFiles="@(UIModJson)" DestinationFolder="$(DeployDir)\ui" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
-	</Target>
-
-	<!-- Override PublishMod target to skip automatic publishing during build -->
-	<Target Name="PublishMod">
-		<Message Text="Publishing disabled. Use PDX Mods website or ParadoxLauncher to upload manually." Importance="high" />
 	</Target>
 
 </Project>

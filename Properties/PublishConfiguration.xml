@@ -1,6 +1,6 @@
 ﻿<Publish>
 	<!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
-	<ModId Value="" />
+	<ModId Value="141606" />
 	<!--Name of the mod to display to players-->
 	<DisplayName Value="Custom Road Snap" />
 	<!--Short description of the mod-->
@@ -10,13 +10,12 @@
 Snap roads to any angle you choose. Configure the snap angle (1–90°) via a slider in the mod settings. Toggle snapping on/off with the toolbar button or a keyboard shortcut.
 	</LongDescription>
 	<!--Thumbnail-->
-	<Thumbnail Value="" />
+	<Thumbnail Value="Properties/Thumbnail.png" />
 	<!--Screenshot, can be set multiple times-->
 	<Screenshot Value="" />
 	<!--Tag, can be set multiple times-->
 	<Tag Value="Code Mod" />
-	<Tag Value="Road" />
-	<Tag Value="Tool" />
+	<Tag Value="UIRoads" />
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="" />
 	<!--Version of the mod-->
