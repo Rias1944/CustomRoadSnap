@@ -1,7 +1,7 @@
 # CustomRoadSnap — Cities: Skylines II Mod
 
 ![Version](https://img.shields.io/badge/version-1.0-blue)
-![Game Version](https://img.shields.io/badge/game%20version-1.1.*-green)
+![Game Version](https://img.shields.io/badge/game%20version-1.5.6f-green)
 
 A mod for **Cities: Skylines II** that snaps roads to a **configurable angle** while the Net Tool is active.
 
