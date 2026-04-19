@@ -22,7 +22,7 @@ A mod for **Cities: Skylines II** that snaps roads to a **configurable angle** w
 3. Enable the mod in **Options → Mods** menu in-game
 
 ### Option 2: Manual Installation (GitHub)
-1. Download the latest [`CustomRoadSnap_v1.0.zip`](https://github.com/Rias1944/CustomRoadSnap/releases/latest)
+1. Download the latest [`CustomRoadSnap-v1.1.zip`](https://github.com/Rias1944/CustomRoadSnap/releases/latest)
 2. Extract the ZIP file
 3. Copy the contents to:  
    `%AppData%\..\LocalLow\Colossal Order\Cities Skylines II\Mods\CustomRoadSnap\`
