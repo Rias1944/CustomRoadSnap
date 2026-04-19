@@ -6,6 +6,11 @@
 
 A mod for **Cities: Skylines II** that snaps roads to a **configurable angle** while the Net Tool is active.
 
+###⚠️ Experimental Mod
+This mod is currently in experimental stage. Bugs may occur during gameplay. 
+Please test the mod on a test save before using it on your main city to avoid 
+potential save corruption or unexpected behavior.
+
 ## Features
 
 - Configure the snap angle (1–90°) via a **slider in mod settings**
