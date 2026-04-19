@@ -1,0 +1,56 @@
+using Colossal.Serialization.Entities;
+using Colossal.UI;
+using Colossal.UI.Binding;
+using Game;
+using Game.SceneFlow;
+using Game.UI;
+
+namespace RoadSnap120
+{
+    /// <summary>
+    /// Stellt der UI einen ValueBinding für den Snap-Zustand und einen TriggerBinding
+    /// für den Toggle-Button zur Verfügung.
+    /// </summary>
+    public partial class RoadSnapUISystem : UISystemBase
+    {
+        private ValueBinding<bool> m_SnapEnabledBinding;
+
+        protected override void OnCreate()
+        {
+            base.OnCreate();
+
+            // Assembly.Location ist unter Mono leer – Pfad über ModManager ermitteln
+            if (GameManager.instance.modManager.TryGetExecutableAsset(Mod.instance, out var asset))
+            {
+                string modDir = System.IO.Path.GetDirectoryName(asset.path);
+                UIManager.defaultUISystem.AddHostLocation("ui-mods", modDir, false);
+            }
+
+            AddBinding(m_SnapEnabledBinding = new ValueBinding<bool>(
+                "roadSnap120", "snapEnabled",
+                Mod.m_Setting?.SnapEnabled ?? false));
+
+            AddBinding(new TriggerBinding(
+                "roadSnap120", "toggleSnap",
+                () =>
+                {
+                    if (Mod.m_Setting == null) return;
+                    Mod.m_Setting.SnapEnabled = !Mod.m_Setting.SnapEnabled;
+                    Mod.m_Setting.ApplyAndSave();
+                    Mod.ApplySnapEnabled(Mod.m_Setting.SnapEnabled);
+                    Mod.log.Info($"120° Snap (UI) {(Mod.m_Setting.SnapEnabled ? "enabled" : "disabled")}");
+                }));
+        }
+
+        protected override void OnGamePreload(Purpose purpose, GameMode mode)
+        {
+            // Intentionally do NOT call base — UISystemBase.OnGamePreload calls set_Enabled
+            // before the ECS state is ready, which causes an InvalidOperationException crash.
+        }
+
+        protected override void OnUpdate()
+        {
+            m_SnapEnabledBinding.Update(Mod.m_Setting?.SnapEnabled ?? false);
+        }
+    }
+}

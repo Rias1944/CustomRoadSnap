@@ -1,0 +1,20 @@
+# Build output
+bin/
+obj/
+ui/node_modules/
+ui/dist/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Notes / scratch files
+*.txt
+
+# Game DLL references (local paths)
+Library/

@@ -1,0 +1,128 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Configurations>Debug;Release</Configurations>
+
+		<!--The file where mod information which is required for publishing mod on PDX mods are stored-->
+		<PublishConfigurationPath>Properties\PublishConfiguration.xml</PublishConfigurationPath>
+
+		<!--ui/node_modules und ui/dist vom MSBuild-Scan ausschließen-->
+		<DefaultItemExcludes>$(DefaultItemExcludes);ui\**</DefaultItemExcludes>
+	</PropertyGroup>
+
+	<!--Imports must be after PropertyGroup block-->
+	<Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))\Mod.props" />
+	<Import Project="$([System.Environment]::GetEnvironmentVariable('CSII_TOOLPATH', 'EnvironmentVariableTarget.User'))\Mod.targets" />
+
+	<!--RunModPostProcessor im Debug-Build überspringen – muss NACH den Imports stehen, damit er den Import-Target korrekt überschreibt-->
+	<Target Name="RunModPostProcessor" AfterTargets="AfterBuild" Condition="'$(NeedBuild)' and '$(Configuration)' == 'Debug'">
+		<Message Text="[Debug] RunModPostProcessor übersprungen – kein Burst/ILPP für Testzwecke nötig." Importance="high" />
+	</Target>
+	<ItemGroup>
+	  <Content Include="ui\mod.json" />
+	  <Content Include="ui\package.json" />
+	  <Content Include="ui\tsconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Game">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.Core">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.Mathematics">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.Logging">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.IO.AssetDatabase">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.UI">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.UI.Binding">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Colossal.Localization">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Unity.InputSystem">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Unity.Burst">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Unity.Collections">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Unity.Entities">
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Unity.Mathematics">
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Update="System">
+			<Private>false</Private>
+		</Reference>
+		<Reference Update="System.Core">
+			<Private>false</Private>
+		</Reference>
+		<Reference Update="System.Data">
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(ModPropsFile)" Link="Properties\Mod.props" />
+		<None Include="$(ModTargetsFile)" Link="Properties\Mod.targets" />
+		<None Include="ui\src\index.tsx" />
+		<None Include="ui\src\mods\RoadSnapButton.module.scss" />
+		<None Include="ui\src\mods\RoadSnapButton.tsx" />
+		<None Include="ui\src\mods\VanillaComponentResolver.ts" />
+		<None Include="ui\src\types\cs2.d.ts" />
+		<None Include="ui\src\types\scss.d.ts" />
+		<None Include="ui\webpack.config.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Lib.Harmony" Version="2.3.3" />
+	</ItemGroup>
+
+	<!-- Override: nur Windows-Plattform kompilieren, kein macOS/Linux -->
+	<Target Name="CustomModPostProcessorConfig" AfterTargets="ModPostProcessorConfig">
+		<ItemGroup>
+			<!-- Exclude 0Harmony from Burst/ILPP references to avoid Burst hashing crash -->
+			<ReferencePathForPostProcessor Include="@(ReferencePath)" Condition="!$([System.String]::Copy('%(Filename)').StartsWith('0Harmony'))" />
+		</ItemGroup>
+		<PropertyGroup>
+			<!-- Use dotnet exec to avoid modifying Steam runtimeconfig files -->
+			<ModPostProcessorArgs>dotnet exec --roll-forward Major "$(ModPostProcessorFullPath.Replace('.exe','.dll'))" PostProcess "$(TargetPath)" -u "$(UnityModProjectFullPath)" @(ReferencePathForPostProcessor->'-r "%(Identity)"', ' ') -p Windows -d -v</ModPostProcessorArgs>
+		</PropertyGroup>
+	</Target>
+
+	<!-- Deploy 0Harmony.dll separately after DeployWIP (bypasses Burst processing) -->
+	<Target Name="DeployHarmony" AfterTargets="DeployWIP" Condition="'$(NeedBuild)'">
+		<ItemGroup>
+			<HarmonyDll Include="@(ReferencePath)" Condition="$([System.String]::Copy('%(Filename)').StartsWith('0Harmony'))" />
+		</ItemGroup>
+		<Copy SourceFiles="@(HarmonyDll)" DestinationFolder="$(DeployDir)" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
+	</Target>
+
+	<!-- Deploy UI-Dateien (RoadSnap120.mjs + CSS) direkt in DeployDir nach DeployWIP -->
+	<Target Name="DeployUI" AfterTargets="DeployWIP" Condition="'$(NeedBuild)' and Exists('$(MSBuildProjectDirectory)\ui\dist\RoadSnap120.mjs')">
+		<ItemGroup>
+			<UIFiles Include="$(MSBuildProjectDirectory)\ui\dist\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(UIFiles)" DestinationFiles="@(UIFiles->'$(DeployDir)\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'$(DeployDir)'!='' and Exists('$(DeployDir)')" />
+	</Target>
+
+</Project>
