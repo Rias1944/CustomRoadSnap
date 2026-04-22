@@ -91,6 +91,8 @@
 		<None Include="ui\src\index.tsx" />
 		<None Include="ui\src\mods\RoadSnapButton.module.scss" />
 		<None Include="ui\src\mods\RoadSnapButton.tsx" />
+		<None Include="ui\src\mods\RoadSnapPanel.module.scss" />
+		<None Include="ui\src\mods\RoadSnapPanel.tsx" />
 		<None Include="ui\src\mods\VanillaComponentResolver.ts" />
 		<None Include="ui\types\api.d.ts" />
 		<None Include="ui\types\assets.d.ts" />

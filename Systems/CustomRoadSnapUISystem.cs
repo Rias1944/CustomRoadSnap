@@ -14,6 +14,7 @@ namespace CustomRoadSnap
     public partial class CustomRoadSnapUISystem : UISystemBase
     {
         private ValueBinding<bool> m_SnapEnabledBinding;
+        private ValueBinding<int> m_SnapAngleBinding;
 
         protected override void OnCreate()
         {
@@ -30,6 +31,10 @@ namespace CustomRoadSnap
                 "customRoadSnap", "snapEnabled",
                 Mod.m_Setting?.SnapEnabled ?? false));
 
+            AddBinding(m_SnapAngleBinding = new ValueBinding<int>(
+                "customRoadSnap", "snapAngle",
+                (int)(Mod.m_Setting?.SnapAngle ?? 30f)));
+
             AddBinding(new TriggerBinding(
                 "customRoadSnap", "toggleSnap",
                 () =>
@@ -39,6 +44,16 @@ namespace CustomRoadSnap
                     Mod.m_Setting.ApplyAndSave();
                     Mod.ApplySnapEnabled(Mod.m_Setting.SnapEnabled);
                     Mod.log.Info($"Custom Snap (UI) {(Mod.m_Setting.SnapEnabled ? "enabled" : "disabled")}");
+                }));
+
+            AddBinding(new TriggerBinding<int>(
+                "customRoadSnap", "setSnapAngle",
+                (int newAngle) =>
+                {
+                    if (Mod.m_Setting == null) return;
+                    Mod.m_Setting.SnapAngle = newAngle;
+                    Mod.m_Setting.ApplyAndSave();
+                    Mod.log.Info($"Snap angle set to {newAngle}°");
                 }));
         }
 
@@ -51,6 +66,7 @@ namespace CustomRoadSnap
         protected override void OnUpdate()
         {
             m_SnapEnabledBinding.Update(Mod.m_Setting?.SnapEnabled ?? false);
+            m_SnapAngleBinding.Update((int)(Mod.m_Setting?.SnapAngle ?? 30f));
         }
     }
 }

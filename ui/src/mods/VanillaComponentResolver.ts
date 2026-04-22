@@ -19,6 +19,7 @@ export class VanillaComponentResolver {
         ToolButton:       ["game-ui/game/components/tool-options/tool-button/tool-button.tsx", "ToolButton"],
         toolButtonTheme:  ["game-ui/game/components/tool-options/tool-button/tool-button.module.scss", "classes"],
         FOCUS_DISABLED:   ["game-ui/common/focus/focus-key.ts", "FOCUS_DISABLED"],
+        ToggleSwitch:     ["game-ui/common/input/toggle-switch/toggle-switch.tsx", "ToggleSwitch"],
     };
 
     constructor(registry: ModuleRegistry) {
@@ -34,4 +35,5 @@ export class VanillaComponentResolver {
     get ToolButton(): any { return this.cachedData["ToolButton"]      ?? this.updateCache("ToolButton"); }
     get toolButtonTheme(): any { return this.cachedData["toolButtonTheme"] ?? this.updateCache("toolButtonTheme"); }
     get FOCUS_DISABLED(): any  { return this.cachedData["FOCUS_DISABLED"]  ?? this.updateCache("FOCUS_DISABLED"); }
+    get ToggleSwitch(): any    { return this.cachedData["ToggleSwitch"]    ?? this.updateCache("ToggleSwitch"); }
 }
