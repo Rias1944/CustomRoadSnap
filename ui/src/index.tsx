@@ -1,6 +1,6 @@
 import { ModRegistrar } from "cs2/modding";
 import { RoadSnapSection } from "mods/RoadSnapButton";
-import { RoadSnapIconButton } from "mods/RoadSnapPanel";
+import { RoadSnapPanelToggle } from "mods/RoadSnapPanel";
 import { VanillaComponentResolver } from "mods/VanillaComponentResolver";
 
 const register: ModRegistrar = (moduleRegistry) => {
@@ -13,11 +13,11 @@ const register: ModRegistrar = (moduleRegistry) => {
         RoadSnapSection
     );
 
-    // Add icon button to photo mode panel (top-left corner)
+    // Add settings panel toggle to game UI
     moduleRegistry.extend(
-        "game-ui/game/components/photo-mode/photo-mode.tsx",
-        "PhotoMode",
-        RoadSnapIconButton
+        "game-ui/game/components/game-main-screen/game-main-screen.tsx",
+        "GameMainScreen",
+        RoadSnapPanelToggle
     );
 };
 

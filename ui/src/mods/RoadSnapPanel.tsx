@@ -9,32 +9,38 @@ import styles from "./RoadSnapPanel.module.scss";
 const snapEnabled$ = bindValue<boolean>("customRoadSnap", "snapEnabled", false);
 const snapAngle$ = bindValue<number>("customRoadSnap", "snapAngle", 30);
 
-// Icon button component (top-left corner)
-export const RoadSnapIconButton: ModuleRegistryExtend = (Component: any) => {
+// Main panel component (injected into toolbar toggles)
+export const RoadSnapPanelToggle: ModuleRegistryExtend = (Component: any) => {
     return (props: any) => {
         const [isPanelOpen, setIsPanelOpen] = useState(false);
         const snapEnabled = useValue(snapEnabled$);
         const snapAngle = useValue(snapAngle$);
         const { translate } = useLocalization();
 
+        // Original component
         const result = Component();
 
-        // Add icon button to top-left photo mode panel
-        const button = createElement(VanillaComponentResolver.instance.ToolButton, {
-            tooltip: translate("CustomRoadSnap.OpenSettings", "Custom Road Snap Settings"),
-            onSelect: () => setIsPanelOpen(!isPanelOpen),
-            src: "Media/Glyphs/Angle.svg",
-            selected: isPanelOpen,
-            focusKey: VanillaComponentResolver.instance.FOCUS_DISABLED,
-            className: VanillaComponentResolver.instance.toolButtonTheme.Button,
-        });
+        // Icon button
+        const iconButton = createElement("button", {
+            className: styles.iconButton,
+            onClick: () => setIsPanelOpen(!isPanelOpen),
+            title: translate("CustomRoadSnap.OpenSettings", "Custom Road Snap Settings"),
+        },
+            createElement("img", {
+                src: "coui://ui-mods/images/angle-icon.svg",
+                className: styles.iconImage,
+            })
+        );
 
-        // Create settings panel
-        const panel = isPanelOpen && createElement("div", { className: styles.panel },
+        // Settings panel
+        const panel = isPanelOpen && createElement("div", { 
+            className: styles.panel,
+            onClick: (e: any) => e.stopPropagation(), // Prevent closing when clicking inside
+        },
             // Header
             createElement("div", { className: styles.header },
                 createElement("img", { 
-                    src: "Media/Glyphs/Angle.svg", 
+                    src: "coui://ui-mods/images/angle-icon.svg", 
                     className: styles.headerIcon 
                 }),
                 createElement("div", { className: styles.headerTitle }, 
@@ -78,13 +84,19 @@ export const RoadSnapIconButton: ModuleRegistryExtend = (Component: any) => {
             )
         );
 
-        // Inject button and panel into the photo mode panel (top-left)
+        // Wrapper container
+        const container = createElement("div", { className: styles.container },
+            iconButton,
+            panel
+        );
+
+        // Inject into result
         if (result?.props?.children) {
-            result.props.children = [
-                ...result.props.children,
-                button,
-                panel
-            ];
+            if (Array.isArray(result.props.children)) {
+                result.props.children = [...result.props.children, container];
+            } else {
+                result.props.children = [result.props.children, container];
+            }
         }
 
         return result;
