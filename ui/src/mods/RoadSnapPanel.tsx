@@ -17,25 +17,22 @@ export const RoadSnapPanelToggle: ModuleRegistryExtend = (Component: any) => {
         const snapAngle = useValue(snapAngle$);
         const { translate } = useLocalization();
 
-        // Original component
-        const result = Component();
+        // Original toggles component
+        const result = Component(props);
 
-        // Icon button
-        const iconButton = createElement("button", {
-            className: styles.iconButton,
-            onClick: () => setIsPanelOpen(!isPanelOpen),
-            title: translate("CustomRoadSnap.OpenSettings", "Custom Road Snap Settings"),
-        },
-            createElement("img", {
-                src: "coui://ui-mods/images/angle-icon.svg",
-                className: styles.iconImage,
-            })
-        );
+        // Create our custom toggle button using the game's ToolButton
+        const toggleButton = createElement(VanillaComponentResolver.instance.ToolButton, {
+            tooltip: translate("CustomRoadSnap.OpenSettings", "Custom Road Snap Settings"),
+            selected: isPanelOpen,
+            onSelect: () => setIsPanelOpen(!isPanelOpen),
+            src: "coui://ui-mods/images/angle-icon.svg",
+            focusKey: VanillaComponentResolver.instance.FOCUS_DISABLED,
+            className: VanillaComponentResolver.instance.toolButtonTheme.button,
+        });
 
         // Settings panel
         const panel = isPanelOpen && createElement("div", { 
             className: styles.panel,
-            onClick: (e: any) => e.stopPropagation(), // Prevent closing when clicking inside
         },
             // Header
             createElement("div", { className: styles.header },
@@ -45,7 +42,12 @@ export const RoadSnapPanelToggle: ModuleRegistryExtend = (Component: any) => {
                 }),
                 createElement("div", { className: styles.headerTitle }, 
                     translate("CustomRoadSnap.Title", "Custom Road Snap")
-                )
+                ),
+                // Close button
+                createElement("button", {
+                    className: styles.closeButton,
+                    onClick: () => setIsPanelOpen(false),
+                }, "×")
             ),
 
             // Content
@@ -84,19 +86,17 @@ export const RoadSnapPanelToggle: ModuleRegistryExtend = (Component: any) => {
             )
         );
 
-        // Wrapper container
-        const container = createElement("div", { className: styles.container },
-            iconButton,
-            panel
-        );
-
-        // Inject into result
+        // Inject button and panel into toolbar toggles
         if (result?.props?.children) {
-            if (Array.isArray(result.props.children)) {
-                result.props.children = [...result.props.children, container];
-            } else {
-                result.props.children = [result.props.children, container];
-            }
+            const children = Array.isArray(result.props.children) 
+                ? result.props.children 
+                : [result.props.children];
+
+            result.props.children = [
+                ...children,
+                toggleButton,
+                panel
+            ];
         }
 
         return result;

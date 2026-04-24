@@ -13,10 +13,10 @@ const register: ModRegistrar = (moduleRegistry) => {
         RoadSnapSection
     );
 
-    // Add settings panel toggle to game UI
+    // Add settings panel toggle to top-left toolbar (like Node Controller, Transit View)
     moduleRegistry.extend(
-        "game-ui/game/components/game-main-screen/game-main-screen.tsx",
-        "GameMainScreen",
+        "game-ui/game/components/toolbar/top/toggles.tsx",
+        "Toggles",
         RoadSnapPanelToggle
     );
 };
