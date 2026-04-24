@@ -88,6 +88,7 @@
 	<ItemGroup>
 		<None Include="$(ModPropsFile)" Link="Properties\Mod.props" />
 		<None Include="$(ModTargetsFile)" Link="Properties\Mod.targets" />
+		<None Include="ui\images\angle-icon.svg" />
 		<None Include="ui\src\index.tsx" />
 		<None Include="ui\src\mods\RoadSnapButton.module.scss" />
 		<None Include="ui\src\mods\RoadSnapButton.tsx" />
