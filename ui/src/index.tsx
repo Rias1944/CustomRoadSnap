@@ -13,10 +13,10 @@ const register: ModRegistrar = (moduleRegistry) => {
         RoadSnapSection
     );
 
-    // Add settings panel toggle to top-left toolbar (like Node Controller, Transit View)
+    // Add settings panel toggle to photo mode buttons (top-left)
     moduleRegistry.extend(
-        "game-ui/game/components/toolbar/top/toggles.tsx",
-        "Toggles",
+        "game-ui/game/components/photo-mode/photo-mode-panel.tsx",
+        "PhotoModePanel",
         RoadSnapPanelToggle
     );
 };
