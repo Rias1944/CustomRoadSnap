@@ -67,4 +67,4 @@ The UI button is injected into CS2's `MouseToolOptions` panel using the official
 
 ## License
 
-MIT
+GNU GPLv3
